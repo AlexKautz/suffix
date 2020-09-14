@@ -8,34 +8,49 @@ namespace suffix
     {
         static void Main(string[] args)
         {
-            // Console.WriteLine("\nWhat is your name? ");
-            // var name = Console.ReadLine();
-            // var date = DateTime.Now;
-            // Console.WriteLine($"\nHello, {name}, on {date:d} at {date:t}!");
-            // Console.Write("\nPress any key to exit...");
-            // Console.ReadKey(true);
-            string bigString = "HelloWorld";
-            var innerNode = new InnerNode(0, 5, ref bigString);
-            var innerNode2 = new InnerNode(1, 3, ref bigString);
-            var leafNode = new LeafNode(0, ref bigString);
-            var leafNode2 = new LeafNode(1, ref bigString);
+            var suffixTree = new SuffixTree("abcde");
 
-            innerNode2.children.Add(leafNode2);
+            Console.WriteLine(suffixTree);
 
-            innerNode.children.Add(innerNode2);
-            innerNode.children.Add(leafNode);
+        }
+    }
 
-            Console.WriteLine(innerNode.ToStringWithChildren());
+    class SuffixTree
+    {
+        public SuffixTree(string input){
+            _string = input;
+            n = _string.Length;
+            _root = new InnerNode(0, n, _string);
+            BuildSlow();
+        }
 
+        private readonly string _string;
+        private readonly int n;
+        private readonly InnerNode _root;
+
+        private void BuildSlow(){
+            Console.WriteLine("Build Slow is running...");
+            for (int i = 0; i < n; i++)
+            {
+                _root.children.Add(
+                    new InnerNode(i, n, _string)
+                );
+            }
+            Console.WriteLine("Build Slow is done.");
+        }
+
+        public override string ToString()
+        {
+            return _root.ToStringWithChildren();
         }
     }
 
     class Node
     {
-        public Node(ref string _string){
-            this._string = _string; // TODO does this work for memory?
+        public Node(string _string){
+            this._string = _string; //TODO does this work for memory?
         }
-        protected string _string;
+        protected readonly string _string;
         public string ToStringWithChildren(){
             StringBuilder sb = new StringBuilder();
             this._ToStringWithChildren(0, sb);
@@ -44,14 +59,14 @@ namespace suffix
         private void _ToStringWithChildren(int indent, StringBuilder sb){
             for (int i = 0; i < indent; i++)
             {
-                sb.Append(" "); // There has got to be an inline way to do this
+                sb.Append("  "); //TODO There has got to be an inline way to do this
             }
-            sb.Append("└");
+            sb.Append("└ ");
             sb.Append(this.ToString());
             sb.Append("\n");
 
             if(this is InnerNode){
-                var kids = ((InnerNode) this).children; // one line way to do this?
+                var kids = ((InnerNode) this).children; //TODO one line way to do this?
                 foreach (Node node in kids)
                 {
                     node._ToStringWithChildren(indent+1, sb);
@@ -62,7 +77,7 @@ namespace suffix
 
     class LeafNode : Node
     {
-        public LeafNode(int value, ref string _string):base(ref _string){ // Am I double refing here
+        public LeafNode(int value, string _string):base(_string){
             Value = value;
         }
 
@@ -76,7 +91,7 @@ namespace suffix
 
     class InnerNode : Node
     {
-        public InnerNode(int startIndex, int endIndex, ref string _string):base(ref _string){
+        public InnerNode(int startIndex, int endIndex, string _string):base(_string){
             LabelStartIndex = startIndex;
             LabelEndIndex = endIndex;
             children = new List<Node>();
@@ -88,6 +103,18 @@ namespace suffix
         public override string ToString()
         {
             return _string.Substring(LabelStartIndex, LabelEndIndex-LabelStartIndex);
+        }
+
+        // Splits an edge at an index
+        public InnerNode Split(int indexToSplitOn){
+            if(LabelStartIndex >= indexToSplitOn || LabelEndIndex <= indexToSplitOn){
+                Console.WriteLine("ERROR: Split index is outside edge label"); // TODO use real error handling here
+                return this;
+            }
+            var newInnerNode = new InnerNode(this.LabelStartIndex, indexToSplitOn, this._string);
+            this.LabelStartIndex = indexToSplitOn;
+            newInnerNode.children.Add(this);
+            return newInnerNode;
         }
     }
 }
