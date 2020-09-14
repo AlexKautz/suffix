@@ -15,12 +15,15 @@ namespace suffix
             // Console.Write("\nPress any key to exit...");
             // Console.ReadKey(true);
             string bigString = "HelloWorld";
-            LeafNode leafNode = new LeafNode(2, ref bigString);
-            InnerNode innerNode = new InnerNode(1, 5, ref bigString);
-            Console.WriteLine($"leafNode {leafNode}");
-            Console.WriteLine($"innerNode {innerNode}");
+            var innerNode = new InnerNode(0, 5, ref bigString);
+            var innerNode2 = new InnerNode(1, 3, ref bigString);
+            var leafNode = new LeafNode(0, ref bigString);
+            var leafNode2 = new LeafNode(1, ref bigString);
+
+            innerNode2.children.Add(leafNode2);
+
+            innerNode.children.Add(innerNode2);
             innerNode.children.Add(leafNode);
-            Console.WriteLine($"innerNode {innerNode} kids {innerNode.children[0]}");
 
             Console.WriteLine(innerNode.ToStringWithChildren());
 
