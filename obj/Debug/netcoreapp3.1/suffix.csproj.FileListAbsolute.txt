@@ -1,0 +1,12 @@
+/Users/akautz/Documents/GitHub/C#/suffix/bin/Debug/netcoreapp3.1/suffix.deps.json
+/Users/akautz/Documents/GitHub/C#/suffix/bin/Debug/netcoreapp3.1/suffix.runtimeconfig.json
+/Users/akautz/Documents/GitHub/C#/suffix/bin/Debug/netcoreapp3.1/suffix.runtimeconfig.dev.json
+/Users/akautz/Documents/GitHub/C#/suffix/bin/Debug/netcoreapp3.1/suffix.dll
+/Users/akautz/Documents/GitHub/C#/suffix/bin/Debug/netcoreapp3.1/suffix.pdb
+/Users/akautz/Documents/GitHub/C#/suffix/obj/Debug/netcoreapp3.1/suffix.csprojAssemblyReference.cache
+/Users/akautz/Documents/GitHub/C#/suffix/obj/Debug/netcoreapp3.1/suffix.AssemblyInfoInputs.cache
+/Users/akautz/Documents/GitHub/C#/suffix/obj/Debug/netcoreapp3.1/suffix.AssemblyInfo.cs
+/Users/akautz/Documents/GitHub/C#/suffix/obj/Debug/netcoreapp3.1/suffix.csproj.CoreCompileInputs.cache
+/Users/akautz/Documents/GitHub/C#/suffix/obj/Debug/netcoreapp3.1/suffix.dll
+/Users/akautz/Documents/GitHub/C#/suffix/obj/Debug/netcoreapp3.1/suffix.pdb
+/Users/akautz/Documents/GitHub/C#/suffix/obj/Debug/netcoreapp3.1/suffix.genruntimeconfig.cache
