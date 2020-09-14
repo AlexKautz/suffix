@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text;
 
 namespace suffix
 {
@@ -21,6 +22,8 @@ namespace suffix
             innerNode.children.Add(leafNode);
             Console.WriteLine($"innerNode {innerNode} kids {innerNode.children[0]}");
 
+            Console.WriteLine(innerNode.ToStringWithChildren());
+
         }
     }
 
@@ -30,6 +33,28 @@ namespace suffix
             this._string = _string; // TODO does this work for memory?
         }
         protected string _string;
+        public string ToStringWithChildren(){
+            StringBuilder sb = new StringBuilder();
+            this._ToStringWithChildren(0, sb);
+            return sb.ToString();
+        }
+        private void _ToStringWithChildren(int indent, StringBuilder sb){
+            for (int i = 0; i < indent; i++)
+            {
+                sb.Append(" "); // There has got to be an inline way to do this
+            }
+            sb.Append("└");
+            sb.Append(this.ToString());
+            sb.Append("\n");
+
+            if(this is InnerNode){
+                var kids = ((InnerNode) this).children; // one line way to do this?
+                foreach (Node node in kids)
+                {
+                    node._ToStringWithChildren(indent+1, sb);
+                }
+            }
+        }
     }
 
     class LeafNode : Node
@@ -42,7 +67,7 @@ namespace suffix
 
         public override string ToString()
         {
-            return $"Value: {Value} Suffix: {_string.Substring(Value)}";
+            return $"{_string.Substring(Value)} {Value}";
         }
     }
 
